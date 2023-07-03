@@ -17,7 +17,7 @@ export const EntryDetails = () => {
         try {
           const response = await axios.get(`https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry/${id}`, {
             headers: {
-              'x-hasura-admin-secret': `${process.env.REACT_APP_API_KEY}`
+              'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`
             }
           });
           setEntry(response.data.entry);
@@ -35,15 +35,16 @@ export const EntryDetails = () => {
     }, [date, content]);
   
     if (!entry) {
-      return <div>Loading...</div>;
+      return <div className='bg-black text-white'>Loading...</div>;
     }
   
     return (
-      <div className='container my-3'>
+      <div className='bg-black flex overflow-hidden'  style={{minHeight: '100vh'}} >
+      <div className='container '>
      
-        <h2 className='my-5'> {date}</h2>
-        <p> {content}</p>
-      
+        <h2 className='my-5 text-white'> {date}</h2>
+        <p className='text-white'> {content}</p>
+        </div>
       </div>
     );
   };

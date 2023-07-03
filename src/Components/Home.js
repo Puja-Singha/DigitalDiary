@@ -21,9 +21,9 @@ export const Home = (props) => {
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry',
+      url: "https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry",
       headers: {
-        'x-hasura-admin-secret': `${process.env.REACT_APP_API_KEY}`
+        'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`,
       }
     };
 
@@ -77,7 +77,7 @@ export const Home = (props) => {
               maxBodyLength: Infinity,
               url: `https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry/${entryId}`,
               headers: {
-                'x-hasura-admin-secret': `${process.env.REACT_APP_API_KEY}`,
+                'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`,
                 'Content-Type': 'application/json',
               },
               data: requestData,
@@ -132,7 +132,6 @@ export const Home = (props) => {
 
    return (
     <div className='bg-black' style={{position: 'relative', minHeight: '100vh' }} >
-      {/* <img src={skyImage} className='relative' alt='' style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '-1' }} loading="lazy"/> */}
     <div className='container items-center px-32 overflow-hidden' >
     <div
           className="welcome-container"
@@ -143,44 +142,6 @@ export const Home = (props) => {
             margin: '20px 0',
           }}
         >
-          {/* <img
-            src={image}
-            className="item-right"
-            alt=""
-            style={{
-              width: '280px',
-              height: '300px',
-              fontSize: '6em',
-             
-              '@media (max-width: @screen-xs-max)': {
-                width: '100px',
-                height: '180px',
-                fontSize: '4em',
-              },
-            }}
-          /> */}
-          <h1
-            className="items-center md:font-3xl font-2xl"
-            style={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              color: 'white',
-              textShadow: '4px 4px 4px pink',
-              borderRadius: '100px',
-              fontSize: '4em',
-              paddingTop: '50px',
-              paddingBottom: '50px',
-              paddingRight: '0.5em',
-              wordSpacing: '0.5em',
-              '@media (max-width: 600px)': {
-                fontSize: '0.5em',
-                paddingTop: '20px',
-                paddingBottom: '20px',
-              },
-            }}
-          >
-            WELCOME TO DIGITALDIARY
-          </h1>
         </div>
 
 
@@ -188,17 +149,16 @@ export const Home = (props) => {
       <h1 className='my-3'style={{
           textAlign: 'center',
           fontWeight: 'bold',
-          color: 'yellow',
-          textShadow: '4px 4px 4px white',
+          color: 'white',
+          textShadow: '4px 2px 2px yellow',
           borderRadius: '10px',
-          // border: '2px solid #00008b',
           padding: '10px',
           fontSize: "5em"
         }}>
         ENTRIES
       </h1>
       {loading ? (
-        <div className="loading-bar">Loading...</div>
+        <div className="loading-bar text-white">Loading...</div>
       ) : (
         <div>
           <div className="card-container overflow-hidden" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', background:'black' }}>
@@ -226,9 +186,9 @@ export const Home = (props) => {
               </div>
             ))}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <button className="btn btn-primary mx-3 overflow-hidden" style={{backgroundColor: "yellow", color: "black"}} onClick={prevPage} disabled={currentPage === 1}>Previous</button>
-            <button className="btn btn-primary" style={{backgroundColor: "yellow", color: "black", }} onClick={nextPage} disabled={currentPage === Math.ceil(entryData.length / entriesPerPage)}>Next</button>
+          <div className='pb-4' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <button className="btn btn-primary mx-3 overflow-hidden " style={{backgroundColor: "yellow", color: "black"}} onClick={prevPage} disabled={currentPage === 1}>Previous</button>
+            <button className="btn btn-primary " style={{backgroundColor: "yellow", color: "black", }} onClick={nextPage} disabled={currentPage === Math.ceil(entryData.length / entriesPerPage)}>Next</button>
           </div>
         </div>
       )}

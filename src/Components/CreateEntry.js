@@ -23,7 +23,7 @@ import axios from 'axios';
               maxBodyLength: Infinity,
               url: 'https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry',
               headers: {
-                'x-hasura-admin-secret': `${process.env.REACT_APP_API_KEY}`
+                'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`
               },
               data: requestData
             };
@@ -38,19 +38,18 @@ import axios from 'axios';
         };
 
   return (
-    <div className='bg-skyBlue' style={{position: 'relative', minHeight: '100vh' }}>
-     {/* <img src={Image} alt='' style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '-1' }} loading="lazy" /> */}
+    <div className='bg-black' style={{position: 'relative', minHeight: '100vh' }}>
     <div className="container" style={{ minHeight: '100vh' }}>
       <form onSubmit={handleSubmit}>
     <div>
-      <h1 className='text-center text-black' style={{paddingTop: "50px", fontSize:"5em",  textShadow: '4px 4px 4px blue'}}>Create Enteries</h1>
+      <h1 className='text-center text-white' style={{paddingTop: "50px", fontSize:"5em",  textShadow: '4px 4px 4px skyBlue'}}>Create Enteries</h1>
       <input
         type="date"
         className="my-3"
         value={newEntry.date}
         name="date"
         onChange={handleInputChange}
-        style={{background:"skyBlue", border: '4px solid skyBlue'}}
+        style={{background:"yellow", border: '4px solid gray', color: 'black'}}
       />
     </div>
     <div>
@@ -62,10 +61,10 @@ import axios from 'axios';
         rows={"8"}
         // cols={"30"}
         onChange={handleInputChange}
-        style={{ width: '100%', backgroundColor: "skyBlue" , color: "blue", border: '4px solid skyBlue' }}
+        style={{ width: '100%', backgroundColor: "yellow" , color: "black", border: '4px solid gray' }}
       ></textarea>
     </div>
-    <button type="submit" className="btn btn-sml btn-primary my-3" style={{background: "skyBlue", color: "black", hover:"blue",  border: '4px solid skyBlue'}}>
+    <button type="submit" className="btn btn-sml btn-primary my-3" style={{background: "yellow", color: "black", hover:"red", cursor:'pointer',  border: '4px solid gray'}}>
       SUBMIT
     </button>
   </form>
