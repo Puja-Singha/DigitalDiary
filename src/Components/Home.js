@@ -15,7 +15,7 @@ export const Home = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 8;
-  const deletedEntries = JSON.parse(localStorage.getItem('deletedEntries')) || [];
+  const [deletedEntries, setDeletedEntries] = useState([]);
 
   const fetchData = async () => {
     const config = {
@@ -26,7 +26,7 @@ export const Home = (props) => {
         'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`,
       }
     };
-
+  
     try {
       const response = await axios.request(config);
       const filteredData = response.data.entry.filter(entry => !deletedEntries.includes(entry.id));
@@ -39,10 +39,10 @@ export const Home = (props) => {
   };
 
   useEffect(() => {
-    
-    fetchData();
-  },);
-
+  const deletedEntries = JSON.parse(localStorage.getItem('deletedEntries')) || [];
+  setDeletedEntries(deletedEntries);
+  fetchData();
+}, [deletedEntries]);
     
   const sortedEntries = entryData.sort((a, b) => {
     const dateA = new Date(a.date);
@@ -89,7 +89,7 @@ export const Home = (props) => {
               localStorage.setItem('deletedEntries', JSON.stringify(updatedDeletedEntries));
               const updatedEntryData = entryData.filter((entry) => entry.id !== entryId);
               setEntryData(updatedEntryData);
-              toast.success('Entry deleted',{position:"top-center"},{theme:"colored"});
+              toast.success('Entry deleted', { position: "top-center" }, { theme: "colored" });
               console.log('Entry deleted:', entryId);
             } catch (error) {
               console.error('Error deleting entry:', error);
