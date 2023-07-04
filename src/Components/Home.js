@@ -17,31 +17,35 @@ export const Home = (props) => {
   const entriesPerPage = 8;
   const [deletedEntries, setDeletedEntries] = useState([]);
 
-  const fetchData = async () => {
-    const config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: "https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry",
-      headers: {
-        'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`,
+  useEffect(() => {
+    const fetchData = async () => {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: "https://vxpqzmpeuyfnwecitjud.hasura.ap-southeast-1.nhost.run/api/rest/entry",
+        headers: {
+          'x-hasura-admin-secret': `daeb7c71e1acf5615bd900c4ddfdd6a7`,
+        }
+      };
+
+      try {
+        const response = await axios.request(config);
+        const filteredData = response.data.entry.filter(entry => !deletedEntries.includes(entry.id));
+        setEntryData(filteredData);
+        setLoading(false);
+        
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
     };
-  
-    try {
-      const response = await axios.request(config);
-      const filteredData = response.data.entry.filter(entry => !deletedEntries.includes(entry.id));
-      setEntryData(filteredData);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-  const deletedEntries = JSON.parse(localStorage.getItem('deletedEntries')) || [];
-  setDeletedEntries(deletedEntries);
+    setDeletedEntries(deletedEntries);
   fetchData();
+}, [deletedEntries]);
+ 
+useEffect(() => {
+  localStorage.setItem('deletedEntries', JSON.stringify(deletedEntries));
 }, [deletedEntries]);
     
   const sortedEntries = entryData.sort((a, b) => {
@@ -86,9 +90,10 @@ export const Home = (props) => {
             try {
               await axios.request(config);
               const updatedDeletedEntries = [...deletedEntries, entryId];
-              localStorage.setItem('deletedEntries', JSON.stringify(updatedDeletedEntries));
+              setDeletedEntries(updatedDeletedEntries); // Update deletedEntries state
               const updatedEntryData = entryData.filter((entry) => entry.id !== entryId);
-              setEntryData(updatedEntryData);
+              setEntryData(updatedEntryData); // Update entryData state
+              localStorage.setItem('deletedEntries', JSON.stringify(updatedDeletedEntries)); // Update localStorage
               toast.success('Entry deleted', { position: "top-center" }, { theme: "colored" });
               console.log('Entry deleted:', entryId);
             } catch (error) {
@@ -100,7 +105,6 @@ export const Home = (props) => {
         {
           label: 'No',
           onClick: () => {
-           
           },
         },
       ],
@@ -158,7 +162,7 @@ export const Home = (props) => {
         ENTRIES
       </h1>
       {loading ? (
-        <div className="loading-bar text-white">Loading...</div>
+        <div className="loading-bar text-white" lazy="loading">Loading...</div>
       ) : (
         <div>
           <div className="card-container overflow-hidden" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', background:'black' }}>
