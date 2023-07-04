@@ -35,7 +35,7 @@ export const EntryDetails = () => {
     }, [date, content]);
   
     if (!entry) {
-      return <div className='bg-black text-white' tyle={{minHeight: '100vh'}}>Loading...</div>;
+      return <div className='bg-black text-white' style={{minHeight: '100vh'}}>Loading...</div>;
     }
   
     return (
