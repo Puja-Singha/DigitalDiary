@@ -42,7 +42,7 @@ export const EntryDetails = () => {
       <div className='bg-black flex overflow-hidden'  style={{minHeight: '100vh'}} >
       <div className='container '>
      
-        <h2 className='my-5 text-white'> {date}</h2>
+        <h2 className='my-5 ' style={{color:"yellow"}}> {date}</h2>
         <p className='text-white'> {content}</p>
         </div>
       </div>

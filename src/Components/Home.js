@@ -73,6 +73,7 @@ useEffect(() => {
             const requestData = JSON.stringify({
               input: {
                 id: entryId,
+                is_deleted: true,
               },
             });
   
@@ -98,7 +99,7 @@ useEffect(() => {
               console.log('Entry deleted:', entryId);
             } catch (error) {
               console.error('Error deleting entry:', error);
-              toast.error('Error deleting entry');
+              toast.error('Error deleting entry', { position: "top-center" }, { theme: "colored" } );
             }
           },
         },
